@@ -69,7 +69,6 @@ exit_script()
 }
 
 
-# Main menu loop
 while true; do
     clear
 	printf "\n"
@@ -82,7 +81,7 @@ while true; do
 	printf "  $O│ $C 4. Exit                 (q)$O │$RESET\n"
     printf "  $O└─$X────────────────────────────$X─┘$RESET\n"
 
-    # Read a single character from the user without requiring Enter
+    # Read user's option choice
     read -n 1 -r choice
 	tput cub 1
     printf " "
