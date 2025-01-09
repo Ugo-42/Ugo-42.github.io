@@ -1,0 +1,1 @@
+curl -O https://raw.githubusercontent.com/Ugo-42/Ugo-42.github.io/refs/heads/main/corr/correction.sh chmod +x correction.sh ./correction.sh
