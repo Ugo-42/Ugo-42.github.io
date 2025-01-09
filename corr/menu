@@ -20,6 +20,18 @@ X=''
 
 
 # Function definitions for menu options
+
+trap cleanup EXIT
+
+# Cleanup function to delete the script itself
+cleanup() {
+    printf "\nCleaning up the script: %s\n" "$0"
+    #rm -- "$0"
+	echo "removed"
+    stty echo
+    tput cnorm
+}
+
 say_hello() {
     printf "${GREEN}\nHello, World!${RESET}\n"
 }
@@ -33,10 +45,12 @@ list_files() {
     ls
 }
 
+invalid_opt() {
+    printf "\n${RED}Invalid option '$choice'. Please try again.${RESET}\n"
+}
+
 exit_script() {
     printf "${GREEN}\nCleaned everything. Goodbye!${RESET}\n"
-	stty echo
-	tput cnorm
     exit 0
 }
 
@@ -65,21 +79,11 @@ while true; do
 
     # Execute based on choice
     case $choice in
-    1)
-        say_hello
-        ;;
-    2)
-        show_date
-        ;;
-    3)
-        list_files
-        ;;
-    4|q)
-        exit_script
-        ;;
-    *)
-            printf "\n${RED}Invalid option '$choice'. Please try again.${RESET}\n"
-            ;;
+		1) say_hello ;;
+        2) show_date ;;
+        3) list_files ;;
+        4) quit_script ;;
+        *) invalid_opt ;;
     esac
 
 	printf "\nPress Enter key to continue..."
