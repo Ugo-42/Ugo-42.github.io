@@ -36,8 +36,8 @@ tput civis
 # And re-enable text printing and cursor
 cleanup()
 {
-    #rm -- "$0"
-	echo "removed"
+    rm -- "$0"
+	#echo "removed"
     stty echo
     tput cnorm
 }
@@ -80,7 +80,7 @@ while true; do
     printf "  $O│ $B 1. Say Hello               $O │$RESET\n"
     printf "  $O│ $B 2. Show Date               $O │$RESET\n"
     printf "  $O│ $B 3. List Files              $O │$RESET\n"
-    printf "  $O│ $C 4. Exit                    $O │$RESET\n"
+	printf "  $O│ $C 4. Exit                 (q)$O │$RESET\n"
     printf "  $O└─$X────────────────────────────$X─┘$RESET\n"
 
     # Read a single character from the user without requiring Enter
