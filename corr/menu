@@ -1,0 +1,87 @@
+#!/bin/bash
+
+# Colors
+RESET='\033[0m'
+BLACK='\033[30m'
+RED='\033[31m'
+GREEN='\033[32m'
+YELLOW='\033[33m'
+BLUE='\033[34m'
+MAGENTA='\033[35m'
+CYAN='\033[36m'
+WHITE='\033[37m'
+
+# Menu Colors:
+A='\033[1;37m'
+B='\033[0;37m'
+C='\033[0;91m'
+O='\033[0;31m'
+X=''
+
+
+# Function definitions for menu options
+say_hello() {
+    printf "${GREEN}\nHello, World!${RESET}\n"
+}
+
+show_date() {
+    printf "${CYAN}\nToday's date is: $(date)${RESET}\n"
+}
+
+list_files() {
+    printf "${YELLOW}\nHere are the files in the current directory:${RESET}\n"
+    ls
+}
+
+exit_script() {
+    printf "${GREEN}\nCleaned everything. Goodbye!${RESET}\n"
+	stty echo
+	tput cnorm
+    exit 0
+}
+
+trap '' SIGINT SIGTSTP
+stty -echo
+
+# Main menu loop
+while true; do
+    clear
+	printf "\n"
+	printf "  $O┌─$X────────────────────────────$X─┐$RESET\n"
+    printf "  $O│ $A        Menu Options        $O │$RESET\n"
+    printf "  $O├─$X────────────────────────────$X─┤$RESET\n"
+    printf "  $O│ $B 1. Say Hello               $O │$RESET\n"
+    printf "  $O│ $B 2. Show Date               $O │$RESET\n"
+    printf "  $O│ $B 3. List Files              $O │$RESET\n"
+    printf "  $O│ $C 4. Exit                    $O │$RESET\n"
+    printf "  $O└─$X────────────────────────────$X─┘$RESET\n"
+
+    # Read a single character from the user without requiring Enter
+	tput civis
+    read -n 1 -r choice
+	tput cub 1
+    printf " "
+    tput cub 1
+
+    # Execute based on choice
+    case $choice in
+    1)
+        say_hello
+        ;;
+    2)
+        show_date
+        ;;
+    3)
+        list_files
+        ;;
+    4|q)
+        exit_script
+        ;;
+    *)
+            printf "\n${RED}Invalid option '$choice'. Please try again.${RESET}\n"
+            ;;
+    esac
+
+	printf "\nPress Enter key to continue..."
+    read -r
+done
