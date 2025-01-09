@@ -36,8 +36,7 @@ tput civis
 cleanup() {
     stty echo
     tput cnorm
-    #rm -- "$0"
-    echo end
+    rm -- "$0"
 }
 
 say_hello() {
