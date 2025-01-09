@@ -15,9 +15,9 @@ WHITE='\033[37m'
 A='\033[1;37m'
 B='\033[0;37m'
 C='\033[0;91m'
+D='\033[0;33m'
 O='\033[0;31m'
 X=''
-
 
 # Clean if exit is triggered
 trap cleanup EXIT SIGHUP
@@ -31,71 +31,101 @@ stty -echo
 # Disable the cursor
 tput civis
 
-
 # Cleanup function to delete the script
 # And re-enable text printing and cursor
-cleanup()
-{
+cleanup() {
     stty echo
     tput cnorm
-    rm -- "$0"
+    #rm -- "$0"
+    echo end
 }
 
-say_hello()
-{
+say_hello() {
     printf "${GREEN}\nHello, World!${RESET}\n"
+	printf "Press Enter to continue..."
+    read -r
 }
 
-show_date()
-{
+show_date() {
     printf "${CYAN}\nToday's date is: $(date)${RESET}\n"
+	printf "Press Enter to continue..."
+    read -r
 }
 
-list_files()
-{
+list_files() {
     printf "${YELLOW}\nHere are the files in the current directory:${RESET}\n"
     ls
+	printf "Press Enter to continue..."
+    read -r
 }
 
-invalid_opt()
-{
+invalid_option() {
     printf "\n${RED}Invalid option '$choice'. Please try again.${RESET}\n"
+	sleep 1
 }
 
-exit_script()
-{
+exit_script() {
     printf "${GREEN}\nCleaned everything. Goodbye!${RESET}\n"
     exit 0
 }
 
+# Submenu for Option 1
+submenu_correction() {
+    while true; do
+        clear
+        printf "\n"
+        printf "  $O┌─$X────────────────────────────$X─┐$RESET\n"
+        printf "  $O│ $A      Correction Menu       $O │$RESET\n"
+        printf "  $O├─$X────────────────────────────$X─┤$RESET\n"
+        printf "  $O│ $B 1. Get Mains               $O │$RESET\n"
+        printf "  $O│ $B 2. Open Environment        $O │$RESET\n"
+        printf "  $O│ $D 3. Go Back              (b)$O │$RESET\n"
+        printf "  $O│ $C 4. Exit                 (q)$O │$RESET\n"
+        printf "  $O└─$X────────────────────────────$X─┘$RESET\n"
 
+        # Read user's option choice
+        read -n 1 -r choice
+        tput cub 1
+        printf " "
+        tput cub 1
+
+        # Execute based on choice
+        case $choice in
+            1) get_mains ;;
+            2) config_environment ;;
+          b|3) break ;;
+          q|4) exit_script ;;
+            *) invalid_option ;;
+        esac
+    done
+}
+
+# Main Menu
 while true; do
     clear
-	printf "\n"
-	printf "  $O┌─$X────────────────────────────$X─┐$RESET\n"
-    printf "  $O│ $A        Menu Options        $O │$RESET\n"
+    printf "\n"
+    printf "  $O┌─$X────────────────────────────$X─┐$RESET\n"
+    printf "  $O│ $A        Main Menu           $O │$RESET\n"
     printf "  $O├─$X────────────────────────────$X─┤$RESET\n"
-    printf "  $O│ $B 1. Say Hello               $O │$RESET\n"
+    printf "  $O│ $B 1. Correction              $O │$RESET\n"
     printf "  $O│ $B 2. Show Date               $O │$RESET\n"
     printf "  $O│ $B 3. List Files              $O │$RESET\n"
-	printf "  $O│ $C 4. Exit                 (q)$O │$RESET\n"
+    printf "  $O│ $C 4. Exit                 (q)$O │$RESET\n"
     printf "  $O└─$X────────────────────────────$X─┘$RESET\n"
 
     # Read user's option choice
     read -n 1 -r choice
-	tput cub 1
+    tput cub 1
     printf " "
     tput cub 1
 
     # Execute based on choice
     case $choice in
-		1) say_hello ;;
+        1) submenu_correction ;;  # Call the submenu
         2) show_date ;;
         3) list_files ;;
       q|4) exit_script ;;
-        *) invalid_opt ;;
+        *) invalid_option ;;
     esac
-
-	printf "\nPress Enter key to continue..."
-    read -r
 done
+
