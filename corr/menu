@@ -20,7 +20,7 @@ X=''
 
 
 # Clean if exit is triggered
-trap cleanup EXIT
+trap cleanup EXIT SIGHUP
 
 # Trap interrupt code (^C ^Z)
 trap '' SIGINT SIGTSTP
