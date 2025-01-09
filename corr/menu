@@ -19,43 +19,56 @@ O='\033[0;31m'
 X=''
 
 
-# Function definitions for menu options
-
+# Clean if exit is triggered
 trap cleanup EXIT
 
-# Cleanup function to delete the script itself
-cleanup() {
-    printf "\nCleaning up the script: %s\n" "$0"
+# Trap interrupt code (^C ^Z)
+trap '' SIGINT SIGTSTP
+
+# Disable text printing
+stty -echo
+
+# Disable the cursor
+tput civis
+
+
+# Cleanup function to delete the script
+# And re-enable text printing and cursor
+cleanup()
+{
     #rm -- "$0"
 	echo "removed"
     stty echo
     tput cnorm
 }
 
-say_hello() {
+say_hello()
+{
     printf "${GREEN}\nHello, World!${RESET}\n"
 }
 
-show_date() {
+show_date()
+{
     printf "${CYAN}\nToday's date is: $(date)${RESET}\n"
 }
 
-list_files() {
+list_files()
+{
     printf "${YELLOW}\nHere are the files in the current directory:${RESET}\n"
     ls
 }
 
-invalid_opt() {
+invalid_opt()
+{
     printf "\n${RED}Invalid option '$choice'. Please try again.${RESET}\n"
 }
 
-exit_script() {
+exit_script()
+{
     printf "${GREEN}\nCleaned everything. Goodbye!${RESET}\n"
     exit 0
 }
 
-trap '' SIGINT SIGTSTP
-stty -echo
 
 # Main menu loop
 while true; do
@@ -71,7 +84,6 @@ while true; do
     printf "  $O└─$X────────────────────────────$X─┘$RESET\n"
 
     # Read a single character from the user without requiring Enter
-	tput civis
     read -n 1 -r choice
 	tput cub 1
     printf " "
@@ -82,7 +94,7 @@ while true; do
 		1) say_hello ;;
         2) show_date ;;
         3) list_files ;;
-        4) quit_script ;;
+      q|4) exit_script ;;
         *) invalid_opt ;;
     esac
 
