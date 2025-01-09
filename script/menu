@@ -36,9 +36,9 @@ tput civis
 # And re-enable text printing and cursor
 cleanup()
 {
-    rm -- "$0"
     stty echo
     tput cnorm
+    rm -- "$0"
 }
 
 say_hello()
