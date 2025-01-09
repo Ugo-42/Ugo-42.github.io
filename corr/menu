@@ -37,7 +37,6 @@ tput civis
 cleanup()
 {
     rm -- "$0"
-	#echo "removed"
     stty echo
     tput cnorm
 }
