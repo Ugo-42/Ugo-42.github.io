@@ -97,7 +97,8 @@ submenu_correction() {
 
 #============================== MAINS SUBMENU =================================#
 get_libft_main() {
-	curl -O https://raw.githubusercontent.com/Ugo-42/test_main/refs/heads/main/libft_main/main.c
+	curl -O https://raw.githubusercontent.com/Ugo-42/test_main/refs/heads/main/libft_main/HEHEHE.c
+    printf "\n${GREEN}Libft Main Downloaded.${RESET}\n"
 }
 
 submenu_mains() {
