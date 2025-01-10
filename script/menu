@@ -15,7 +15,7 @@ WHITE='\033[37m'
 A='\033[1;37m'
 B='\033[0;37m'
 C='\033[0;91m'
-D='\033[0;33m'
+D='\033[0;32m'
 O='\033[0;31m'
 X=''
 
@@ -43,36 +43,25 @@ cleanup() {
     rm -- "$0"
 }
 
-say_hello() {
-    printf "${GREEN}\nHello, World!${RESET}\n"
-	printf "Press Enter to continue..."
-    read -r
-}
-
-show_date() {
-    printf "${CYAN}\nToday's date is: $(date)${RESET}\n"
-	printf "Press Enter to continue..."
-    read -r
-}
-
-list_files() {
-    printf "${YELLOW}\nHere are the files in the current directory:${RESET}\n"
-    ls
-	printf "Press Enter to continue..."
-    read -r
-}
-
 invalid_option() {
     printf "\n${RED}Invalid option '$choice'. Please try again.${RESET}\n"
 	sleep 1
 }
 
 exit_script() {
-    printf "${GREEN}\nCleaned everything. Goodbye!${RESET}\n"
+	clear
+    printf "\n"
+    printf "  $GREEN┌──────────────────────────────┐$RESET\n"
+    printf "  $GREEN│ Cleaned everything. Goodbye! │$RESET\n"
+    printf "  $GREEN└──────────────────────────────┘$RESET\n"
+    printf "\n"
     exit 0
 }
 
-# Submenu for Option 1
+void(){
+	print ""
+}
+
 submenu_correction() {
     while true; do
         clear
@@ -103,6 +92,37 @@ submenu_correction() {
     done
 }
 
+#################################################################
+submenu_mains() {
+    while true; do
+        clear
+        printf "\n"
+        printf "  $O┌─$X────────────────────────────$X─┐$RESET\n"
+        printf "  $O│ $A          My Mains          $O │$RESET\n"
+        printf "  $O├─$X────────────────────────────$X─┤$RESET\n"
+        printf "  $O│ $B 1.                         $O │$RESET\n"
+        printf "  $O│ $B 2.                         $O │$RESET\n"
+        printf "  $O│ $D 3. Go Back              (b)$O │$RESET\n"
+        printf "  $O│ $C 4. Exit                 (q)$O │$RESET\n"
+        printf "  $O└─$X────────────────────────────$X─┘$RESET\n"
+
+        # Read user's option choice
+        read -n 1 -r choice
+        tput cub 1
+        printf " "
+        tput cub 1
+
+        # Execute based on choice
+        case $choice in
+            1) void ;;
+            2) void ;;
+          b|3) break ;;
+          q|4) exit_script ;;
+            *) invalid_option ;;
+        esac
+    done
+}
+
 # Main Menu
 while true; do
     clear
@@ -111,8 +131,8 @@ while true; do
     printf "  $O│ $A        Main Menu           $O │$RESET\n"
     printf "  $O├─$X────────────────────────────$X─┤$RESET\n"
     printf "  $O│ $B 1. Correction              $O │$RESET\n"
-    printf "  $O│ $B 2. Show Date               $O │$RESET\n"
-    printf "  $O│ $B 3. List Files              $O │$RESET\n"
+    printf "  $O│ $B 2.                         $O │$RESET\n"
+    printf "  $O│ $B 3.                         $O │$RESET\n"
     printf "  $O│ $C 4. Exit                 (q)$O │$RESET\n"
     printf "  $O└─$X────────────────────────────$X─┘$RESET\n"
 
@@ -125,8 +145,8 @@ while true; do
     # Execute based on choice
     case $choice in
         1) submenu_correction ;;  # Call the submenu
-        2) show_date ;;
-        3) list_files ;;
+        2) void ;;
+        3) void ;;
       q|4) exit_script ;;
         *) invalid_option ;;
     esac
