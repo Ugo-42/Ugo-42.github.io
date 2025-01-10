@@ -34,7 +34,7 @@ stty susp ''
 # Disable the cursor
 tput civis
 
-#============================ COMMUN FUNCTIONS ================================#
+#============================ COMMON FUNCTIONS ================================#
 # Cleanup function to delete the script
 # And re-enable text printing and cursor
 cleanup() {
@@ -42,6 +42,12 @@ cleanup() {
     tput cnorm
 	stty susp '^Z'
     rm -- "$0"
+	clear
+    printf "\n"
+    printf "  $GREEN┌──────────────────────────────┐$RESET\n"
+    printf "  $GREEN│ Cleaned everything. Goodbye! │$RESET\n"
+    printf "  $GREEN└──────────────────────────────┘$RESET\n"
+    printf "\n"
 }
 
 invalid_option() {
@@ -50,21 +56,15 @@ invalid_option() {
 }
 
 exit_script() {
-	clear
-    printf "\n"
-    printf "  $GREEN┌──────────────────────────────┐$RESET\n"
-    printf "  $GREEN│ Cleaned everything. Goodbye! │$RESET\n"
-    printf "  $GREEN└──────────────────────────────┘$RESET\n"
-    printf "\n"
     exit 0
 }
 
-void(){
+void() {
 	print ""
 }
 #==============================================================================#
 
-#============================== MAINS SUBMENU =================================#
+#=========================== CORRECTION SUBMENU ===============================#
 submenu_correction() {
     while true; do
         clear
@@ -96,6 +96,10 @@ submenu_correction() {
 }
 
 #============================== MAINS SUBMENU =================================#
+get_libft_main() {
+	curl https://raw.githubusercontent.com/Ugo-42/test_main/refs/heads/main/libft_main/NULLtester.c
+}
+
 submenu_mains() {
     while true; do
         clear
