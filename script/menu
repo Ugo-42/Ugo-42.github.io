@@ -93,7 +93,6 @@ set_environment() {
     local MAGENTA='\033[38;2;255;0;255m'
     local PURPLE='\033[38;2;102;0;255m'
     local WHITE='\033[38;2;255;255;255m'
-    local RESET='\033[0m'
 
 	# remap CapsLock to Escape
 	setxkbmap -option caps:escape
@@ -101,8 +100,7 @@ set_environment() {
 	# Create a temporary alias file
 	cat <<- EOF > $TMP_ALIAS_FILE
 		EDITOR=vim
-		#PS1='\[\033[38;2;255;0;0m\]\u@\h\[\033[38;2;255;0;255m\]:\[\033[38;2;102;0;255m\]\w\[\033[38;2;255;0;255m\]\$\[\033[0m\]\[\033[38;2;255;255;255m\] '
-		PS1='\[$RED\]\u@\h\[$MAGENTA\]:\[$PURPLE\]\w\[$MAGENTA\]\$\[$RESET\]\[$WHITE\] '
+		PS1='\[$RED\]\u@\h\[$MAGENTA\]:\[$PURPLE\]\w\[$MAGENTA\]\$\[$WHITE\] '
 		mkcd_() { mkdir "$1" && cd "$1"; }
 		alias mkcd='mkcd_'
 		alias ls='ls --color=auto'
