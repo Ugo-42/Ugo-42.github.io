@@ -20,7 +20,7 @@ E='\033[0;33m'
 O='\033[0;31m'
 X=''
 
-TMP_ALIAS_FILE="/tmp/ugwentzi_tmp_aliases"
+TMP_ALIAS_FILE="/tmp/.aliases_ugwentzi.tmp"
 
 # Clean if exit is triggered
 trap cleanup EXIT SIGHUP
