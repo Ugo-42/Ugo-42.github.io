@@ -126,6 +126,11 @@ get_url_ft_printf_main() {
     echo "${part1}${part2}"
 }
 
+get_url_get_next_line_main() {
+    local part1="https://raw.githubusercontent.com/Ugo-42/test_main/"
+    local part2="refs/heads/main/get_next_line_main/main.c"
+    echo "${part1}${part2}"
+}
 submenu_mains() {
     while true; do
         clear
@@ -135,8 +140,9 @@ submenu_mains() {
         printf "  $O├─$X────────────────────────────$X─┤$RESET\n"
         printf "  $O│ $B 1. libft                   $O │$RESET\n"
         printf "  $O│ $B 2. ft_printf               $O │$RESET\n"
-        printf "  $O│ $E 3. Go Back              (b)$O │$RESET\n"
-        printf "  $O│ $C 4. Exit                 (q)$O │$RESET\n"
+        printf "  $O│ $B 3. get_next_line           $O │$RESET\n"
+        printf "  $O│ $E 4. Go Back              (b)$O │$RESET\n"
+        printf "  $O│ $C 5. Exit                 (q)$O │$RESET\n"
         printf "  $O└─$X────────────────────────────$X─┘$RESET\n"
 
         # Read user's option choice
@@ -147,10 +153,11 @@ submenu_mains() {
 
         # Execute based on choice
         case $choice in
-			1) download_file "$(get_url_libft_main)" "libft Main" ;;
-            2) download_file "$(get_url_ft_printf_main)" "ft_printf Main" ;;
-          b|3) break ;;
-          q|4) exit_script ;;
+			1) download_file "$(get_url_libft_main)" "libft main.c" ;;
+            2) download_file "$(get_url_ft_printf_main)" "ft_printf main.c" ;;
+            3) download_file "$(get_url_get_next_line_main)" "get_next_line main.c" ;;
+          b|4) break ;;
+          q|5) exit_script ;;
             *) invalid_option ;;
         esac
     done
