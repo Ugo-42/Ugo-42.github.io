@@ -28,6 +28,9 @@ trap '' SIGINT SIGTSTP
 # Disable text printing
 stty -echo
 
+# Disable Ctrl+Z
+stty susp ''
+
 # Disable the cursor
 tput civis
 
@@ -36,6 +39,7 @@ tput civis
 cleanup() {
     stty echo
     tput cnorm
+	stty susp '^Z'
     rm -- "$0"
 }
 
