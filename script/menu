@@ -45,9 +45,9 @@ cleanup() {
     rm -- "$0"
 	clear
     printf "\n"
-    printf "  $GREEN┌──────────────────────────────┐$RESET\n"
-    printf "  $GREEN│ Cleaned everything. Goodbye! │$RESET\n"
-    printf "  $GREEN└──────────────────────────────┘$RESET\n"
+    printf "  $O┌$X──────────────────────────────$X┐$RESET\n"
+    printf "  $O│$D Cleaned everything. Goodbye! $O│$RESET\n"
+    printf "  $O└$X──────────────────────────────$X┘$RESET\n"
     printf "\n"
 }
 
