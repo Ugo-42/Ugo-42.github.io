@@ -34,6 +34,7 @@ stty susp ''
 # Disable the cursor
 tput civis
 
+#============================ COMMUN FUNCTIONS ================================#
 # Cleanup function to delete the script
 # And re-enable text printing and cursor
 cleanup() {
@@ -61,7 +62,9 @@ exit_script() {
 void(){
 	print ""
 }
+#==============================================================================#
 
+#============================== MAINS SUBMENU =================================#
 submenu_correction() {
     while true; do
         clear
@@ -92,7 +95,7 @@ submenu_correction() {
     done
 }
 
-#################################################################
+#============================== MAINS SUBMENU =================================#
 submenu_mains() {
     while true; do
         clear
@@ -122,8 +125,9 @@ submenu_mains() {
         esac
     done
 }
+#==============================================================================#
 
-# Main Menu
+#=============================== MAIN MENU ====================================#
 while true; do
     clear
     printf "\n"
@@ -151,4 +155,4 @@ while true; do
         *) invalid_option ;;
     esac
 done
-
+#==============================================================================#
