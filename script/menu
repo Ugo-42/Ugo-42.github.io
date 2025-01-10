@@ -101,7 +101,7 @@ set_environment() {
 	# Create a temporary alias file
 	cat <<- EOF > $TMP_ALIAS_FILE
 		EDITOR=vim
-		PS1='\[\033[38;2;255;0;0m\]\u@\h\[\033[38;2;255;0;255m\]:\[\033[38;2;102;0;255m\]$(basename "\w")\[\033[38;2;255;0;255m\]\$\[\033[0m\]\[\033[38;2;255;255;255m\] '
+		PS1='\[\033[38;2;255;0;0m\]\u@\h\[\033[38;2;255;0;255m\]:\[\033[38;2;102;0;255m\]\w\[\033[38;2;255;0;255m\]\$\[\033[0m\]\[\033[38;2;255;255;255m\] '
 		alias sk='setxkbmap -option caps:escape'
 		alias ks='setxkbmap -option caps:capslock'
 		alias endcorr='setxkbmap -option && rm -f $TMP_ALIAS_FILE && exit'
