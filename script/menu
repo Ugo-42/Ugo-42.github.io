@@ -119,7 +119,7 @@ submenu_mains() {
         printf "  $O├─$X────────────────────────────$X─┤$RESET\n"
         printf "  $O│ $B 1. Libft                   $O │$RESET\n"
         printf "  $O│ $B 2.                         $O │$RESET\n"
-        printf "  $O│ $D 3. Go Back              (b)$O │$RESET\n"
+        printf "  $O│ $E 3. Go Back              (b)$O │$RESET\n"
         printf "  $O│ $C 4. Exit                 (q)$O │$RESET\n"
         printf "  $O└─$X────────────────────────────$X─┘$RESET\n"
 
