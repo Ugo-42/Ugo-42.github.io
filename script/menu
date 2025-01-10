@@ -125,7 +125,7 @@ submenu_correction() {
         # Execute based on choice
         case $choice in
             1) submenu_mains ;;
-            2) void ;;
+            2) set_environment ;;
           b|3) break ;;
           q|4) exit_script ;;
             *) invalid_option ;;
