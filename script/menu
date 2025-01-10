@@ -48,6 +48,7 @@ cleanup() {
 	stty susp '^Z'
 	setxkbmap -option
 	[ -f "$TMP_ALIAS_FILE" ] && rm -f "$TMP_ALIAS_FILE"
+	[ -f "$TMP_VIMRC_FILE" ] && rm -f "$TMP_VIMRC_FILE"
 	rm -- "$0"
 	clear
 	printf "\n"
@@ -117,7 +118,7 @@ set_environment() {
 	cat <<- EOF > $TMP_VIMRC_FILE
 		autocmd VimEnter * normal! '"
 		syntax on
-		colorscheme shine
+		colorscheme koehler
 		filetype indent on
 		set tabstop=4
 		set shiftwidth=4
