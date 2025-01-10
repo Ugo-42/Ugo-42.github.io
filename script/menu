@@ -100,7 +100,7 @@ set_environment() {
 	EOF
 
 	# open terminator
-	terminator --geometry=1920x2160+0+0 -e "bash --init-file $TMP_ALIAS_FILE" &
+	terminator --geometry=1920x2160+0+0 -e "bash --init-file $TMP_ALIAS_FILE" 2>/dev/null &
 }
 
 submenu_correction() {
