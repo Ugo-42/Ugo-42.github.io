@@ -60,8 +60,25 @@ exit_script() {
     exit 0
 }
 
+
 void() {
 	print ""
+}
+
+download_file() {
+    local url=$1
+    local description=$2
+
+    printf "\nDownloading %s...\n" "$description"
+    curl -O "$url"
+    if [ $? -eq 0 ]; then
+        printf "\n${GREEN}%s Downloaded!${RESET}\n" "$description"
+        printf "Press Enter to continue..."
+        read -r
+    else
+        printf "\n${RED}Failed to download %s.${RESET}\n" "$description"
+        sleep 3
+    fi
 }
 #==============================================================================#
 
@@ -97,17 +114,16 @@ submenu_correction() {
 }
 
 #============================== MAINS SUBMENU =================================#
-get_libft_main() {
-    printf "\nDownloading Libft Main...\n"
-    curl -O https://raw.githubusercontent.com/Ugo-42/test_main/refs/heads/main/libft_main/main.c
-    if [ $? -eq 0 ]; then
-        printf "\n${GREEN}Libft Main Downloaded!${RESET}\n"
-		printf "Press Enter to continue..."
-		read -r
-    else
-        printf "\n${RED}Failed to download Libft Main.${RESET}\n"
-		sleep 3
-    fi
+get_url_libft_main() {
+    local part1="https://raw.githubusercontent.com/Ugo-42/test_main"
+    local part2="/refs/heads/main/libft_main/main.c"
+    echo "${part1}${part2}"
+}
+
+get_url_ft_printf_main() {
+    local part1="https://raw.githubusercontent.com/Ugo-42/test_main/"
+    local part2="refs/heads/main/ft_printf_main/main.c"
+    echo "${part1}${part2}"
 }
 
 submenu_mains() {
@@ -117,8 +133,8 @@ submenu_mains() {
         printf "  $O┌─$X────────────────────────────$X─┐$RESET\n"
         printf "  $O│ $A          My Mains          $O │$RESET\n"
         printf "  $O├─$X────────────────────────────$X─┤$RESET\n"
-        printf "  $O│ $B 1. Libft                   $O │$RESET\n"
-        printf "  $O│ $B 2.                         $O │$RESET\n"
+        printf "  $O│ $B 1. libft                   $O │$RESET\n"
+        printf "  $O│ $B 2. ft_printf               $O │$RESET\n"
         printf "  $O│ $E 3. Go Back              (b)$O │$RESET\n"
         printf "  $O│ $C 4. Exit                 (q)$O │$RESET\n"
         printf "  $O└─$X────────────────────────────$X─┘$RESET\n"
@@ -131,8 +147,8 @@ submenu_mains() {
 
         # Execute based on choice
         case $choice in
-            1) get_libft_main ;;
-            2) void ;;
+			1) download_file "$(get_url_libft_main)" "libft Main" ;;
+            2) download_file "$(get_url_ft_printf_main)" "ft_printf Main" ;;
           b|3) break ;;
           q|4) exit_script ;;
             *) invalid_option ;;
