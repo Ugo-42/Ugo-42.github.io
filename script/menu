@@ -20,19 +20,21 @@ E='\033[0;33m'
 O='\033[0;31m'
 X=''
 
+# Location of temp files
 TMP_ALIAS_FILE="/tmp/.ugwentzi_aliases.tmp"
+TMP_VIMRC_FILE="/tmp/.ugwentzi_vimrc.tmp"
 
-# Clean if exit is triggered
+# Clean if exit is triggered or if terminal is closed
 trap cleanup EXIT SIGHUP
 
 # Trap interrupt code (^C ^Z)
 trap '' SIGINT SIGTSTP
 
-# Disable text printing
-stty -echo
-
 # Disable Ctrl+Z
 stty susp ''
+
+# Disable text printing
+stty -echo
 
 # Disable the cursor
 tput civis
@@ -62,11 +64,6 @@ invalid_option() {
 
 exit_script() {
 	exit 0
-}
-
-
-void() {
-	print ""
 }
 
 download_file() {
@@ -113,7 +110,18 @@ set_environment() {
 		alias gst='git status'
 		alias cca='gcc *.c -Wall -Wextra -Werror && ./a.out'
 		alias ccf='gcc *.c -Wall -Wextra -Werror'
+		alias vim='vim -u $TMP_VIMRC_FILE'
 		alias endcorr='setxkbmap -option && rm -f $TMP_ALIAS_FILE && exit'
+	EOF
+
+	cat <<- 'EOF' > "$TEMP_VIMRC_FILE"
+		autocmd VimEnter * normal! '"
+		syntax on
+		colorscheme shine
+		filetype indent on
+		set tabstop=4
+		set shiftwidth=4
+		set is hls
 	EOF
 
 	# open terminator
@@ -211,9 +219,7 @@ while true; do
     printf "  $O│ $A        Main Menu           $O │$RESET\n"
     printf "  $O├─$X────────────────────────────$X─┤$RESET\n"
     printf "  $O│ $B 1. Correction              $O │$RESET\n"
-    printf "  $O│ $B 2.                         $O │$RESET\n"
-    printf "  $O│ $B 3.                         $O │$RESET\n"
-    printf "  $O│ $C 4. Exit                 (q)$O │$RESET\n"
+    printf "  $O│ $C 2. Exit                 (q)$O │$RESET\n"
     printf "  $O└─$X────────────────────────────$X─┘$RESET\n"
 
     # Read user's option choice
@@ -225,9 +231,7 @@ while true; do
     # Execute based on choice
     case $choice in
         1) submenu_correction ;;  # Call the submenu
-        2) void ;;
-        3) void ;;
-      q|4) exit_script ;;
+      q|2) exit_script ;;
         *) invalid_option ;;
     esac
 done
