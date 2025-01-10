@@ -86,7 +86,7 @@ submenu_correction() {
 
         # Execute based on choice
         case $choice in
-            1) get_mains ;;
+            1) submenu_mains ;;
             2) config_environment ;;
           b|3) break ;;
           q|4) exit_script ;;
@@ -97,7 +97,7 @@ submenu_correction() {
 
 #============================== MAINS SUBMENU =================================#
 get_libft_main() {
-	curl -O https://raw.githubusercontent.com/Ugo-42/test_main/refs/heads/main/libft_main/HEHEHE.c
+	curl -O https://raw.githubusercontent.com/Ugo-42/test_main/refs/heads/main/libft_main/main.c
     printf "\n${GREEN}Libft Main Downloaded.${RESET}\n"
 }
 
