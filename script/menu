@@ -114,7 +114,7 @@ set_environment() {
 		alias endcorr='setxkbmap -option && rm -f $TMP_ALIAS_FILE && exit'
 	EOF
 
-	cat <<- 'EOF' > "$TEMP_VIMRC_FILE"
+	cat <<- EOF > $TEMP_VIMRC_FILE
 		autocmd VimEnter * normal! '"
 		syntax on
 		colorscheme shine
