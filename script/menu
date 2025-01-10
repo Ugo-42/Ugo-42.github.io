@@ -97,7 +97,7 @@ submenu_correction() {
 
 #============================== MAINS SUBMENU =================================#
 get_libft_main() {
-	curl https://raw.githubusercontent.com/Ugo-42/test_main/refs/heads/main/libft_main/NULLtester.c
+	curl -O https://raw.githubusercontent.com/Ugo-42/test_main/refs/heads/main/libft_main/main.c
 }
 
 submenu_mains() {
@@ -107,7 +107,7 @@ submenu_mains() {
         printf "  $O┌─$X────────────────────────────$X─┐$RESET\n"
         printf "  $O│ $A          My Mains          $O │$RESET\n"
         printf "  $O├─$X────────────────────────────$X─┤$RESET\n"
-        printf "  $O│ $B 1.                         $O │$RESET\n"
+        printf "  $O│ $B 1. Libft                   $O │$RESET\n"
         printf "  $O│ $B 2.                         $O │$RESET\n"
         printf "  $O│ $D 3. Go Back              (b)$O │$RESET\n"
         printf "  $O│ $C 4. Exit                 (q)$O │$RESET\n"
@@ -121,7 +121,7 @@ submenu_mains() {
 
         # Execute based on choice
         case $choice in
-            1) void ;;
+            1) get_libft_main ;;
             2) void ;;
           b|3) break ;;
           q|4) exit_script ;;
