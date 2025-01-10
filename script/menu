@@ -58,11 +58,6 @@ cleanup() {
 	printf "\n"
 }
 
-invalid_option() {
-	printf "\n${RED}Invalid option '$choice'. Please try again.${RESET}\n"
-	sleep 1
-}
-
 exit_script() {
 	exit 0
 }
@@ -155,7 +150,7 @@ submenu_correction() {
             2) set_environment ;;
           b|3) break ;;
           q|4) exit_script ;;
-            *) invalid_option ;;
+            *) ;;
         esac
     done
 }
@@ -206,7 +201,7 @@ submenu_mains() {
             3) download_file "$(get_url_get_next_line_main)" "get_next_line main.c" ;;
           b|4) break ;;
           q|5) exit_script ;;
-            *) invalid_option ;;
+            *) ;;
         esac
     done
 }
@@ -233,7 +228,7 @@ while true; do
     case $choice in
         1) submenu_correction ;;  # Call the submenu
       q|2) exit_script ;;
-        *) invalid_option ;;
+        *) ;;
     esac
 done
 #==============================================================================#
