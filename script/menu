@@ -16,6 +16,7 @@ A='\033[1;37m'
 B='\033[0;37m'
 C='\033[0;91m'
 D='\033[0;32m'
+E='\033[0;33m'
 O='\033[0;31m'
 X=''
 
@@ -73,8 +74,8 @@ submenu_correction() {
         printf "  $O│ $A      Correction Menu       $O │$RESET\n"
         printf "  $O├─$X────────────────────────────$X─┤$RESET\n"
         printf "  $O│ $B 1. Get Mains               $O │$RESET\n"
-        printf "  $O│ $B 2. Open Environment        $O │$RESET\n"
-        printf "  $O│ $D 3. Go Back              (b)$O │$RESET\n"
+        printf "  $O│ $B 2.                         $O │$RESET\n"
+        printf "  $O│ $E 3. Go Back              (b)$O │$RESET\n"
         printf "  $O│ $C 4. Exit                 (q)$O │$RESET\n"
         printf "  $O└─$X────────────────────────────$X─┘$RESET\n"
 
@@ -87,7 +88,7 @@ submenu_correction() {
         # Execute based on choice
         case $choice in
             1) submenu_mains ;;
-            2) config_environment ;;
+            2) void ;;
           b|3) break ;;
           q|4) exit_script ;;
             *) invalid_option ;;
@@ -97,8 +98,16 @@ submenu_correction() {
 
 #============================== MAINS SUBMENU =================================#
 get_libft_main() {
-	curl -O https://raw.githubusercontent.com/Ugo-42/test_main/refs/heads/main/libft_main/main.c
-    printf "\n${GREEN}Libft Main Downloaded.${RESET}\n"
+    printf "\nDownloading Libft Main...\n"
+    curl -O https://raw.githubusercontent.com/Ugo-42/test_main/refs/heads/main/libft_main/main.c
+    if [ $? -eq 0 ]; then
+        printf "\n${GREEN}Libft Main Downloaded!${RESET}\n"
+		printf "Press Enter to continue..."
+		read -r
+    else
+        printf "\n${RED}Failed to download Libft Main.${RESET}\n"
+		sleep 3
+    fi
 }
 
 submenu_mains() {
