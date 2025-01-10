@@ -20,6 +20,8 @@ E='\033[0;33m'
 O='\033[0;31m'
 X=''
 
+TMP_ALIAS_FILE="/tmp/ugwentzi_tmp_aliases"
+
 # Clean if exit is triggered
 trap cleanup EXIT SIGHUP
 
@@ -39,25 +41,27 @@ tput civis
 # Cleanup function to delete the script
 # And re-enable text printing and cursor
 cleanup() {
-    stty echo
-    tput cnorm
+	stty echo
+	tput cnorm
 	stty susp '^Z'
-    rm -- "$0"
+	setxkbmap -option
+	[ -f "$TMP_ALIAS_FILE" ] && rm -f "$TMP_ALIAS_FILE"
+	rm -- "$0"
 	clear
-    printf "\n"
-    printf "  $O┌$X──────────────────────────────$X┐$RESET\n"
-    printf "  $O│$D Cleaned everything. Goodbye! $O│$RESET\n"
-    printf "  $O└$X──────────────────────────────$X┘$RESET\n"
-    printf "\n"
+	printf "\n"
+	printf "  $O┌$X──────────────────────────────$X┐$RESET\n"
+	printf "  $O│$D Cleaned everything. Goodbye! $O│$RESET\n"
+	printf "  $O└$X──────────────────────────────$X┘$RESET\n"
+	printf "\n"
 }
 
 invalid_option() {
-    printf "\n${RED}Invalid option '$choice'. Please try again.${RESET}\n"
+	printf "\n${RED}Invalid option '$choice'. Please try again.${RESET}\n"
 	sleep 1
 }
 
 exit_script() {
-    exit 0
+	exit 0
 }
 
 
@@ -66,23 +70,39 @@ void() {
 }
 
 download_file() {
-    local url=$1
-    local description=$2
+	local url=$1
+	local description=$2
 
-    printf "\nDownloading %s...\n" "$description"
-    curl -O "$url"
-    if [ $? -eq 0 ]; then
-        printf "\n${GREEN}%s Downloaded!${RESET}\n" "$description"
-        printf "Press Enter to continue..."
-        read -r
-    else
-        printf "\n${RED}Failed to download %s.${RESET}\n" "$description"
-        sleep 3
-    fi
+	printf "\nDownloading %s...\n" "$description"
+	curl -O "$url"
+	if [ $? -eq 0 ]; then
+		printf "\n${GREEN}%s Downloaded!${RESET}\n" "$description"
+		printf "Press Enter to continue..."
+		read -r
+	else
+		printf "\n${RED}Failed to download %s.${RESET}\n" "$description"
+		sleep 3
+	fi
 }
 #==============================================================================#
 
 #=========================== CORRECTION SUBMENU ===============================#
+set_environment() {
+
+	# remap CapsLock to Escape
+	setxkbmap -option caps:escape
+
+	# Create a temporary alias file
+	cat <<- EOF > $TMP_ALIAS_FILE
+		alias sk='setxkbmap -option caps:escape'
+		alias ks='setxkbmap -option caps:capslock'
+		alias endcorr='setxkbmap -option && rm -f $TMP_ALIAS_FILE && exit'
+	EOF
+
+	# open terminator
+	terminator --geometry=1920x2160+0+0 -e "bash --init-file $TMP_ALIAS_FILE" &
+}
+
 submenu_correction() {
     while true; do
         clear
@@ -91,7 +111,7 @@ submenu_correction() {
         printf "  $O│ $A      Correction Menu       $O │$RESET\n"
         printf "  $O├─$X────────────────────────────$X─┤$RESET\n"
         printf "  $O│ $B 1. Get Mains               $O │$RESET\n"
-        printf "  $O│ $B 2.                         $O │$RESET\n"
+        printf "  $O│ $B 2. Set environment         $O │$RESET\n"
         printf "  $O│ $E 3. Go Back              (b)$O │$RESET\n"
         printf "  $O│ $C 4. Exit                 (q)$O │$RESET\n"
         printf "  $O└─$X────────────────────────────$X─┘$RESET\n"
@@ -112,24 +132,25 @@ submenu_correction() {
         esac
     done
 }
+#==============================================================================#
 
 #============================== MAINS SUBMENU =================================#
 get_url_libft_main() {
-    local part1="https://raw.githubusercontent.com/Ugo-42/test_main"
-    local part2="/refs/heads/main/libft_main/main.c"
-    echo "${part1}${part2}"
+	local part1="https://raw.githubusercontent.com/Ugo-42/test_main"
+	local part2="/refs/heads/main/libft_main/main.c"
+	echo "${part1}${part2}"
 }
 
 get_url_ft_printf_main() {
-    local part1="https://raw.githubusercontent.com/Ugo-42/test_main/"
-    local part2="refs/heads/main/ft_printf_main/main.c"
-    echo "${part1}${part2}"
+	local part1="https://raw.githubusercontent.com/Ugo-42/test_main/"
+	local part2="refs/heads/main/ft_printf_main/main.c"
+	echo "${part1}${part2}"
 }
 
 get_url_get_next_line_main() {
-    local part1="https://raw.githubusercontent.com/Ugo-42/test_main/"
-    local part2="refs/heads/main/get_next_line_main/main.c"
-    echo "${part1}${part2}"
+	local part1="https://raw.githubusercontent.com/Ugo-42/test_main/"
+	local part2="refs/heads/main/get_next_line_main/main.c"
+	echo "${part1}${part2}"
 }
 submenu_mains() {
     while true; do
